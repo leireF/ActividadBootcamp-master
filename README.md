@@ -31,41 +31,48 @@ Antes de ejecutar la API, es necesario inicializar y poblar la base de datos Mon
 
 2. Crear un nuevo directorio para el proyecto 
 
-mkdir mi_proyecto_api
+    ```bash
+    mkdir mi_proyecto_api
 
 3. Navega al directorio del proyecto:   
 
-cd ejercicio-bootcamp/mi_proyecto_api
+    ```bash
+    cd ejercicio-bootcamp/mi_proyecto_api
 
 4. Ejecutar el script de inicializacion de la base de datos:
 
-node inicializarBD.js
+    ```bash
+    node inicializarBD.js
 
 Este script se conectará a la base de datos MongoDB y agregará datos de muestra desde el archivo users.json ubicado en la carpeta db_sample. Asegúrate de que la base de datos MongoDB esté en ejecución antes de ejecutar este script.
 
 ### Pasos para desplegar la base de datos MongoDB en un contenedor Docker
 
 1. Crear una red Docker
-
-docker network create bootcamp
+    ```bash
+    docker network create bootcamp
 
 2. Ejecutar el contenedor de Docker para MongoDB:
 
-docker run --name mongodb_container --hostname mi-mongodb -d -p 27017:27017 --network bootcamp mongo
+    ```bash
+    docker run --name mongodb_container --hostname mi-mongodb -d -p 27017:27017 --network bootcamp mongo
 
 ### Pasos para ejecutarla API en una maquina local
 
 1. Iniciar un nuevo proyecto de Node.js con npm
 
-npm init -y
+    ```bash
+    npm init -y
 
 2. Instalar los modulos necesarios
 
-npm install express mongodb
+    ```bash
+    npm install express mongodb
 
 3. Ejecutar la API escribiendo en la terminal
 
-node server.js
+    ```bash
+    node server.js
 
 La API estará disponible en http://localhost:8080.
 
@@ -111,8 +118,10 @@ Despues debo cosntruir y ejecutar mi contener docker con los siguiente comandos:
 
 1. Construir la imagen del Docker
 
-docker build -t test_node_api . 
+    ```bash
+    docker build -t test_node_api . 
 
 2. Ejecutar el contenedor
 
-docker run -p 8080:8080 -d --name test_node_api --network bootcamp test_node_api
+    ```bash
+    docker run -p 8080:8080 -d --name test_node_api --network bootcamp test_node_api
