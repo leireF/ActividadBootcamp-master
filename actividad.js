@@ -75,8 +75,7 @@ app.put('/updateDocument', async (req, res) => {
         const database = client.db('bootcamp');
         const collection = database.collection('bootcamp');
     
-        // Definir el filtro para buscar documentos con el campo 'first_name' igual a 'Brandise'
-        //const filter = {  first_name: 'Brandise' }; //este existe y lo modifica
+        // Definir el filtro para buscar documentos con el campo 'first_name' igual a 'Julio'
         const filter = {  first_name: 'Julio' }; //este no existe debe crearlo 
 
         // Definir los campos que deseas actualizar
