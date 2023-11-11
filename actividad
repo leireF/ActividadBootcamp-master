@@ -1,0 +1,23 @@
+const { MongoClient } = require('mongodb');
+
+async function connectToMongoDB() {
+    const uri = 'mongodb://localhost:27017';
+    const client = new MongoClient(uri);
+
+    try {
+        await client.connect();
+        const database = client.db('bootcamp');
+        const collection = database.collection('bootcamp');
+
+        const usersData = require('../Bootcamp-Full-Stack/db_sample/users.json'); // Lee el archivo JSON desde la carpeta db_sample
+
+        // Insertar datos en la colección
+        await collection.insertMany(usersData);
+    } catch (err) {
+        console.error(err);
+    } finally {
+        await client.close();
+    }
+}
+
+connectToMongoDB();
