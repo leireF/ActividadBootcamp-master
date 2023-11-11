@@ -1,3 +1,10 @@
+Instalarse Visual Studio Code
+Instalarse  node y npm
+Instalar Git
+Instalar Docker
+Instalar en VSC las extensiones como docker
+
+ 
  PUNTO 3
  
  docker network create bootcamp
@@ -28,3 +35,5 @@ Despues debo cosntruir y ejecutar mi contener docker con los siguiente comandos:
 docker build -t test_node_api .      //construye la imagen
 docker run -p 8080:8080 -d --name test_node_api --network bootcamp test_node_api   //ejecutar contenedor
 
+
+CAMBIOS
