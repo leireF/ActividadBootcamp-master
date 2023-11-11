@@ -1,39 +1,118 @@
-Instalarse Visual Studio Code
-Instalarse  node y npm
-Instalar Git
-Instalar Docker
-Instalar en VSC las extensiones como docker
+# Actividad Bootcamp - Descripción
 
- 
- PUNTO 3
- 
- docker network create bootcamp
- docker run --name mongodb_container --hostname mi-mongodb -d -p 27017:27017 --network bootcamp mongo
+Este repositorio contiene una API sencilla desarrollada con Node.js que se conecta a una base de datos MongoDB desplegada en un contenedor Docker. La API tiene las siguientes funcionalidades:
 
- PUNTO 4
+- **GET /documents:** Devuelve todos los documentos en la colección de la base de datos.
 
-Crear un nuevo directorio y configurar un proyecto de Node.js:
-Abre una terminal y crea un nuevo directorio para tu proyecto. Luego, inicia un nuevo proyecto de Node.js con npm:
- mkdir mi_proyecto_api
-cd mi_proyecto_api
+- **GET /documentsFiltered:** Devuelve los documentos que cumplen una condición específica en base a un query sobre uno o varios campos de un documento.
+
+- **PUT /updateDocument:** Modifica algunos campos de un documento que cumple una condición o query. Si el documento no se encuentra, crea uno nuevo.
+
+- **DELETE /deleteDocument:** Elimina el(los) documento(s) que cumplen alguna condición o query. Si el documento no se encuentra, no realiza ninguna acción.
+
+## Instrucciones para usar el código en otra máquina
+
+### Requisitos previos
+
+1. Tener un IDE instalado en tu máquina (por ejemplo, Visual Studio Code).
+
+2. Crear un perfil de GitHub.
+
+3. Instalar Docker en tu máquina.
+
+## Inicialización de la Base de Datos
+
+Antes de ejecutar la API, es necesario inicializar y poblar la base de datos MongoDB. Sigue estos pasos:
+
+1. Clona este repositorio en tu máquina local:
+
+   ```bash
+   git clone https://github.com/tu-usuario/ActividadBootcamp.git
+
+2. Crear un nuevo directorio para el proyecto 
+
+mkdir mi_proyecto_api
+
+3. Navega al directorio del proyecto:   
+
+cd ejercicio-bootcamp/mi_proyecto_api
+
+4. Ejecutar el script de inicializacion de la base de datos:
+
+node inicializarBD.js
+
+Este script se conectará a la base de datos MongoDB y agregará datos de muestra desde el archivo users.json ubicado en la carpeta db_sample. Asegúrate de que la base de datos MongoDB esté en ejecución antes de ejecutar este script.
+
+### Pasos para desplegar la base de datos MongoDB en un contenedor Docker
+
+1. Crear una red Docker
+
+docker network create bootcamp
+
+2. Ejecutar el contenedor de Docker para MongoDB:
+
+docker run --name mongodb_container --hostname mi-mongodb -d -p 27017:27017 --network bootcamp mongo
+
+### Pasos para ejecutarla API en una maquina local
+
+1. Iniciar un nuevo proyecto de Node.js con npm
+
 npm init -y
 
-Instalar los módulos necesarios:
+2. Instalar los modulos necesarios
+
 npm install express mongodb
 
-Crear archivo server.js y escribir codigo
-Ejecutar la API escribiendo en la terminal: node server.js
-Abrir un navegador o utilizar una herramienta como Postman e ingresar la URL 'http://localhost:8080/documents. Esto debería devolver todos los documentos en la colección especificada.
-Para docuemntos filtrados usar esta URL: http://localhost:8080/documentsFiltered. En el codigo le he indicado que la query sea gender:Female
-Para poder actualziar datos usar esta URL:http://localhost:8080/updateDocument Se busca el objeto que tenga first_name: 'Brandise' y se le modifica married_status: false. 
+3. Ejecutar la API escribiendo en la terminal
 
-Para eliminar su usa esta URL: http://localhost:8080/deleteDocument. Se elimina el registro que coincida con este filtro:last_name: 'Southwell'.
+node server.js
 
-PUNTO 5
+La API estará disponible en http://localhost:8080.
+
+4. Utilizar herramientas como Postman o cURL para probar las diferentes rutas de la API.
+
+## Rutas y cómo probarlas
+
+1. **GET /documents:**
+
+   - Descripción: Devuelve todos los documentos en la colección.
+   - Método: GET
+   - URL: http://localhost:8080/documents
+
+2. **GET /documentsFiltered:**
+
+   - Descripción: Devuelve los documentos cuyo campo 'gender' es igual a 'Female'.
+   - Método: GET
+   - URL: http://localhost:8080/documentsFiltered
+
+3. **PUT /updateDocument:**
+
+   - Descripción: Modifica el campo 'married_status' a true para el documento con 'first_name' igual a 'Julio' si existe; de lo contrario, crea un nuevo documento.
+   - Método: PUT
+   - URL: http://localhost:8080/updateDocument
+   - Ejemplo de cuerpo de la solicitud (JSON):
+     ```json
+     {
+       "first_name": "Julio",
+       "married_status": true
+     }
+
+4. **DELETE /deleteDocument:**
+
+   - Descripción: Elimina el(los) documento(s) cuyo campo 'last_name' es igual a 'Southwell'.
+   - Método: DELETE
+   - URL: http://localhost:8080/deleteDocument
+
+
+### Dockerizacion de la API
+
 He creado mi archivo Dockerfile para poder dockerizar mi APi.
 Despues debo cosntruir y ejecutar mi contener docker con los siguiente comandos:
-docker build -t test_node_api .      //construye la imagen
-docker run -p 8080:8080 -d --name test_node_api --network bootcamp test_node_api   //ejecutar contenedor
 
+1. Construir la imagen del Docker
 
-CAMBIOS
+docker build -t test_node_api . 
+
+2. Ejecutar el contenedor
+
+docker run -p 8080:8080 -d --name test_node_api --network bootcamp test_node_api
